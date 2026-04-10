@@ -16,7 +16,7 @@ class CategoryService
         $validator = Category::validate($data);
 
         if ($validator->fails()) {
-            return $validator->errors();
+            return response()->json($validator->errors(), 400);
         }
 
         return $this->categoryRepository->create($data);

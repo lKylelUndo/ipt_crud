@@ -2,13 +2,27 @@
 
 namespace App\Repository;
 
+use App\Models\Product;
+
 class ProductRepository
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
+    public function getAllProducts() 
     {
-        //
+        return Product::all();
+    }
+
+    public function createProduct($data) 
+    {
+        return Product::create($data);
+    }
+
+    public function updateProduct($data, $id) 
+    {
+        return Product::where('id', $id)->update($data);
+    }
+    
+    public function deleteProduct($id) 
+    {
+        return Product::where('id', $id)->delete();
     }
 }

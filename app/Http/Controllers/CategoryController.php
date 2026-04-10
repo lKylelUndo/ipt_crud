@@ -33,9 +33,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $response = $this->category->createCategory($request->all());
-
-        return $response;
+        return $this->category->createCategory($request->all());
     }
 
     /**
