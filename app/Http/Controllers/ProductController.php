@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function __construct(private ProductService $productService) {}
+    
     public function index()
     {
-        //
+        return $this->productService->getAllProducts();
     }
 
     /**
@@ -28,7 +29,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->productService->createProduct($request->all());
     }
 
     /**
@@ -50,16 +51,16 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        return $this->productService->updateProduct($request->all(), $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        return $this->productService->deleteProduct($id);
     }
 }
