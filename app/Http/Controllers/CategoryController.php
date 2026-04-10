@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
+    // Dependency Injection
+    public function __construct(private CategoryService $category) {}
+
     /**
      * Display a listing of the resource.
      */
@@ -28,7 +33,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $response = $this->category->createCategory($request->all());
+
+        return $response;
     }
 
     /**

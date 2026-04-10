@@ -2,13 +2,23 @@
 
 namespace App\Services;
 
+use App\Models\Category;
+use App\Repository\CategoryRepository;
+
 class CategoryService
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
+    
+    // Dependency Injection
+    public function __construct(private CategoryRepository $categoryRepository) {}
+
+    public function createCategory($data) 
     {
-        //
+        $validator = Category::validate($data);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        return $this->categoryRepository->create($data);
     }
 }

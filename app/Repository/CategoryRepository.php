@@ -2,13 +2,13 @@
 
 namespace App\Repository;
 
+use App\Models\Category;
+
 class CategoryRepository
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
+
+    public function create($data)
     {
-        //
+        return Category::create($data);
     }
 }
