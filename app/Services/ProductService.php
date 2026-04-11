@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Product;
 use App\Repository\ProductRepository;
 
 class ProductService
@@ -14,33 +13,18 @@ class ProductService
         return $this->productRepository->getAllProducts();
     }
 
-    public function createProduct($data)
+    public function createProduct(array $data)
     {
-        $validator = Product::validate($data);
-
-        if ($validator->fails())
-            return response()->json($validator->errors(), 400);
-
         return $this->productRepository->createProduct($data);
     }
 
-    public function updateProduct($data, $id)
+    public function updateProduct(array $data, int $id): bool
     {
-        $updated = $this->productRepository->updateProduct($data, $id);
-
-        if (!$updated) 
-            return response()->json([ 'message' => 'Product failed to update or not existed' ], 400);
-        
-        return response()->json([ 'message' => 'Product updated' ], 200);
+        return (bool) $this->productRepository->updateProduct($data, $id);
     }
 
-    public function deleteProduct($id)
+    public function deleteProduct(int $id): bool
     {
-        $deleted = $this->productRepository->deleteProduct($id);
-
-        if (!$deleted) 
-            return response()->json([ 'message' => 'Product not found' ], 404);
-        
-        return response()->json([ 'message' => 'Product deleted' ], 200);
+        return (bool) $this->productRepository->deleteProduct($id);
     }
 }

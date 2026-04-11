@@ -6,9 +6,9 @@ use App\Models\Product;
 
 class ProductRepository
 {
-    public function getAllProducts() 
+    public function getAllProducts()
     {
-        return Product::all();
+        return Product::with('category')->orderBy('product_name')->get();
     }
 
     public function createProduct($data) 

@@ -9,8 +9,22 @@
     <form method="POST" action="{{ route('categories.store') }}">
         @csrf
 
-        <input class="form-control mb-3" type="text" name="cat_name" placeholder="Category Name" value="{{ old('cat_name') }}">
-        <input class="form-control mb-3" type="text" name="cat_color" placeholder="Category Color" value="{{ old('cat_color') }}">
+        <div class="mb-3">
+            <label class="form-label" for="category_name">Category name</label>
+            <input
+                id="category_name"
+                class="form-control @error('category_name') is-invalid @enderror"
+                type="text"
+                name="category_name"
+                placeholder="Category name"
+                value="{{ old('category_name') }}"
+                maxlength="100"
+                required
+            >
+            @error('category_name')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
         <button class="btn btn-primary w-100" type="submit">Save</button>
     </form>

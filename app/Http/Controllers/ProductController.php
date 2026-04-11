@@ -2,65 +2,85 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use App\Services\CategoryService;
 use App\Services\ProductService;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ProductController extends Controller
 {
+    public function __construct(
+        private ProductService $productService,
+        private CategoryService $categoryService,
+    ) {}
 
-    public function __construct(private ProductService $productService) {}
-    
     public function index()
     {
-        return $this->productService->getAllProducts();
+        $products = $this->productService->getAllProducts();
+
+        return view('products.index', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $categories = $this->categoryService->getAllCategories();
+
+        return view('products.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        return $this->productService->createProduct($request->all());
+        $this->productService->createProduct($request->validated());
+
+        return redirect()
+            ->route('products.index')
+            ->with('success', 'Product created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Product $product)
     {
-        //
+        $product->load('category');
+
+        return view('products.show', compact('product'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Product $product)
     {
-        //
+        $categories = $this->categoryService->getAllCategories();
+
+        return view('products.edit', compact('product', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
-        return $this->productService->updateProduct($request->all(), $id);
+        $updated = $this->productService->updateProduct($request->validated(), $product->id);
+
+        if (! $updated) {
+            return redirect()
+                ->route('products.index')
+                ->with('error', 'Product could not be updated.');
+        }
+
+        return redirect()
+            ->route('products.index')
+            ->with('success', 'Product updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function destroy(Product $product): RedirectResponse
     {
-        return $this->productService->deleteProduct($id);
+        $deleted = $this->productService->deleteProduct($product->id);
+
+        if (! $deleted) {
+            return redirect()
+                ->route('products.index')
+                ->with('error', 'Product could not be deleted.');
+        }
+
+        return redirect()
+            ->route('products.index')
+            ->with('success', 'Product deleted successfully.');
     }
 }

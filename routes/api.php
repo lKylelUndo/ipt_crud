@@ -9,13 +9,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
-// Category Routes
-Route::post('/add-category', [CategoryController::class, 'store'])->name('add.category');
-
-// Product Routes
-Route::get('/get-all-products', [ProductController::class, 'index'])->name('get.products');
-Route::post('/add-product', [ProductController::class, 'store'])->name('add.product');
-Route::put('/update-product/{id}', [ProductController::class, 'update'])->name('update.product');
-Route::delete('/delete-product/{id}', [ProductController::class, 'destroy'])->name('delete.product');
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 

@@ -19,13 +19,8 @@
 
     <ul class="list-group">
         @foreach($categories as $category)
-        <li class="list-group-item d-flex justify-content-between align-items-center text-center">
-            {{ $category->cat_name }}
-            <span class="badge category-color"
-                  style="background-color: {{ $category->cat_color }};
-                         color: {{ in_array(strtolower($category->cat_color), ['#ffffff','white','rgb(255,255,255)']) ? '#000' : '#fff' }};">
-                {{ $category->cat_color }}
-            </span>
+        <li class="list-group-item text-center">
+            {{ $category->category_name }}
         </li>
         @endforeach
     </ul>

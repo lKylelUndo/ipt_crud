@@ -9,6 +9,11 @@ class Category extends Model
 {
     protected $fillable = ['category_name'];
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
     public static function validate($data) 
     {
         return Validator::make($data, [
