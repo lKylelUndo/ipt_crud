@@ -17,6 +17,7 @@
             <tr>
                 <th class="text-center">Name</th>
                 <th class="text-center">Price</th>
+                <th class="text-center">Qty</th>
                 <th class="text-center">Category</th>
                 <th class="text-center">Action</th>
             </tr>
@@ -25,18 +26,20 @@
             @foreach ($products as $product)
             <tr>
                 <td class="text-center">{{ $product->product_name }}</td>
-                <td class="text-center">₱ {{ $product->product_price }}</td>
+                <td class="text-center">₱ {{ number_format($product->product_price, 2) }}</td>
+                <td class="text-center">{{ $product->product_quantity }}</td>
                 <td class="text-center">
-                    <span class="category-badge" style="background-color: {{ $product->category->cat_color ?? '#000' }}">
-                        {{ $product->category->cat_name ?? 'N/A' }}
+                    <span class="badge text-bg-secondary">
+                        {{ $product->category->category_name ?? 'N/A' }}
                     </span>
                 </td>
                 <td>
+                    <a class="btn btn-outline-secondary btn-sm" href="{{ route('products.show', $product->id) }}">View</a>
                     <a class="btn btn-edit btn-sm" href="{{ route('products.edit', $product->id) }}">Edit</a>
                     <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-delete btn-sm" type="submit">Delete</button>
+                        <button class="btn btn-delete btn-sm" type="submit" onclick="return confirm('Delete this product?');">Delete</button>
                     </form>
                 </td>
             </tr>
