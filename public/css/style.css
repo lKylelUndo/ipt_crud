@@ -1,0 +1,213 @@
+/* =========================
+   COLOR PALETTE
+   ========================= */
+:root {
+    --dark: #003135;
+    --dark2: #024950;
+    --accent: #0FA4AF;
+    --light: #AFDDE5;
+    --danger: #964734;
+}
+
+/* =========================
+   BODY
+   ========================= */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, var(--dark), var(--dark2));
+    font-family: 'Poppins', sans-serif;
+    color: var(--light);
+}
+
+main {
+    flex: 1;
+}
+
+/* =========================
+   FORM CARD (LOGIN STYLE)
+   ========================= */
+.form-container {
+    width: 380px; /* 👈 FIXED SIZE like login */
+    margin: 60px auto;
+    padding: 30px;
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* =========================
+   PAGE CONTAINER
+   ========================= */
+.page-container {
+    max-width: 950px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* =========================
+   TITLES
+   ========================= */
+h2 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--light);
+}
+
+/* =========================
+   INPUTS (TRANSPARENT)
+   ========================= */
+.form-control,
+.form-select {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--light);
+    border-radius: 8px;
+}
+
+.form-control::placeholder {
+    color: rgba(175,221,229,0.6);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: transparent;
+    border-color: var(--light);
+    box-shadow: 0 0 8px var(--accent);
+    color: var(--light);
+}
+
+/* Fix select dropdown text */
+.form-select option {
+    color: #000;
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background: var(--accent);
+    border: none;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--light);
+    color: var(--dark);
+}
+
+.btn-success {
+    background: var(--accent);
+    border: none;
+}
+
+.btn-secondary {
+    background: #555;
+    border: none;
+}
+
+.btn-edit {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+}
+
+.btn-delete {
+    background: var(--danger);
+    color: #fff;
+    border: none;
+}
+
+/* =========================
+   TABLE
+   ========================= */
+table.table {
+    background-color: transparent !important;
+    color: var(--light) !important;
+}
+
+table.table thead th {
+    background: var(--dark2) !important;
+    color: var(--light) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+table.table tbody {
+    background-color: transparent !important;
+}
+
+table.table tbody tr {
+    background-color: rgba(255,255,255,0.05) !important;
+}
+
+table.table tbody tr td {
+    background-color: transparent !important;
+    color: var(--light) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+table.table-hover tbody tr:hover {
+    background-color: rgba(15,164,175,0.15) !important;
+}
+
+/* =========================
+   CATEGORY BADGE
+   ========================= */
+.category-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #fff;
+}
+
+/* =========================
+   NAVBAR
+   ========================= */
+.navbar {
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+}
+
+.navbar .nav-link {
+    color: var(--light);
+}
+
+.navbar .nav-link:hover {
+    color: var(--accent);
+}
+.navbar-brand {
+    color: var(--light) !important;
+}
+
+.navbar-brand:hover {
+    color: var(--accent) !important;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+.footer {
+    background: rgba(0,0,0,0.3);
+    color: var(--light);
+}
+.list-group-item {
+    background: rgba(255,255,255,0.05);
+    color: var(--light);
+}
