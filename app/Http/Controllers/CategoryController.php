@@ -5,22 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use App\Services\CategoryService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
     public function __construct(private CategoryService $categoryService) {}
 
-    public function index(): View
+    public function index()
     {
         $categories = $this->categoryService->getAllCategories();
 
         return view('categories.index', compact('categories'));
     }
 
-    public function create(): View
+    public function create()
     {
         return view('categories.create');
     }
@@ -34,23 +32,17 @@ class CategoryController extends Controller
             ->with('success', 'Category created successfully.');
     }
 
-    public function show(Category $category)
+    public function destroy($id)
     {
-        //
-    }
+        $deleted = Category::where('id', $id)->delete();
 
-    public function edit(Category $category)
-    {
-        //
-    }
+        if ($deleted == 0)
+            return redirect()
+                ->route('categories.index')
+                ->with('message', 'Failed to delete');
 
-    public function update(Request $request, Category $category)
-    {
-        //
-    }
-
-    public function destroy(Category $category)
-    {
-        //
+        return redirect()
+            ->route('categories.index')
+            ->with('message', 'Successfully deleted');
     }
 }

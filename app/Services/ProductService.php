@@ -18,13 +18,13 @@ class ProductService
         return $this->productRepository->createProduct($data);
     }
 
-    public function updateProduct(array $data, int $id): bool
+    public function updateProduct($data, $id)
     {
-        return (bool) $this->productRepository->updateProduct($data, $id);
+        return $this->productRepository->updateProduct($data, $id);
     }
 
-    public function deleteProduct(int $id): bool
+    public function deleteProduct($id)
     {
-        return (bool) $this->productRepository->deleteProduct($id);
+        return $this->productRepository->deleteProduct($id);
     }
 }

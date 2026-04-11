@@ -7,15 +7,10 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Services\CategoryService;
 use App\Services\ProductService;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 
 class ProductController extends Controller
 {
-    public function __construct(
-        private ProductService $productService,
-        private CategoryService $categoryService,
-    ) {}
+    public function __construct( private ProductService $productService, private CategoryService $categoryService ) {}
 
     public function index()
     {
@@ -42,8 +37,6 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $product->load('category');
-
         return view('products.show', compact('product'));
     }
 
@@ -54,7 +47,7 @@ class ProductController extends Controller
         return view('products.edit', compact('product', 'categories'));
     }
 
-    public function update(UpdateProductRequest $request, Product $product): RedirectResponse
+    public function update(UpdateProductRequest $request, Product $product)
     {
         $updated = $this->productService->updateProduct($request->validated(), $product->id);
 
@@ -69,11 +62,11 @@ class ProductController extends Controller
             ->with('success', 'Product updated successfully.');
     }
 
-    public function destroy(Product $product): RedirectResponse
+    public function destroy(Product $product)
     {
         $deleted = $this->productService->deleteProduct($product->id);
 
-        if (! $deleted) {
+        if ($deleted == 0) {
             return redirect()
                 ->route('products.index')
                 ->with('error', 'Product could not be deleted.');
